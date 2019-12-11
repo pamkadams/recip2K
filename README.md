@@ -24,3 +24,6 @@ Inline-style:
 ## Data Model
 
 ![alt text](https://github.com/pamkadams/recip2K/blob/master/Screen%20Shot%202019-12-10%20at%208.00.54%20PM.png)
+
+## Sources
+Started my components here: https://www.codementor.io/blizzerand/building-forms-using-react-everything-you-need-to-know-iz3eyoq4y#comments-iz3eyoq4y
