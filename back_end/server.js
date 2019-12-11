@@ -3,9 +3,13 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-port = 3000;
+port = 3003;
 
 const mongoose = require("mongoose");
+
+//CONTROLLERS/ROUTES
+const recipesController = require("./controllers/recipes.js");
+app.use("/recipes", recipesController);
 
 //middleware
 app.use(cors());
@@ -26,10 +30,6 @@ mongoose.connect("mongodb://localhost:27017/recipes", {
 mongoose.connection.once("open", () => {
   console.log("connected to mongoose");
 });
-
-//CONTROLLERS/ROUTES
-const recipesController = require("./controllers/recipes.js");
-app.use("/recipes", recipesController);
 
 //Listen
 app.listen(port, () => {
