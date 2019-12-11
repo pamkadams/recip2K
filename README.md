@@ -8,7 +8,9 @@ An at-home recipe database to keep recipes organized and in a central database. 
 - Create form components with React (select, checkboxes, text area) 
 ### Post MVP
 - option to embed pdf recipes
-- view thumbnail of the pdf
+- view thumbnail of the pdf - 
+![alt text](https://github.com/pamkadams/recip2K/blob/master/small_embed_thumbnail.png)
+
 ## Technology
 - React
 - Express
