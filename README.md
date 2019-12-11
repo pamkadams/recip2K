@@ -16,3 +16,6 @@ An at-home recipe database to keep recipes organized and in a central database. 
 ## Wireframes
 Inline-style: 
 ![alt text](https://github.com/pamkadams/recip2K/blob/master/add_wireframe.png)
+![alt text](https://github.com/pamkadams/recip2K/blob/master/view_wireframe.png)
+![alt text](https://github.com/pamkadams/recip2K/blob/master/search_wireframe.png)
+
