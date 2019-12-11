@@ -19,3 +19,6 @@ Inline-style:
 ![alt text](https://github.com/pamkadams/recip2K/blob/master/view_wireframe.png)
 ![alt text](https://github.com/pamkadams/recip2K/blob/master/search_wireframe.png)
 
+## Data Model
+
+![alt text](https://github.com/pamkadams/recip2K/blob/master/Screen%20Shot%202019-12-10%20at%208.00.54%20PM.png)
