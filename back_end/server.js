@@ -8,6 +8,14 @@ port = 3003;
 const mongoose = require("mongoose");
 const recipesController = require("./controllers/recipes.js");
 
+function ignoreFavicon(req, res, next) {
+  if (req.originalUrl === "/favicon.ico") {
+    res.status(204).json({ nope: true });
+  } else {
+    next();
+  }
+}
+
 const whitelist = ["http://localhost:3000", "http://localhost:3003"];
 const corsOptions = {
   origin: (origin, callback) => {
@@ -20,6 +28,7 @@ const corsOptions = {
 };
 
 //middleware
+app.use(ignoreFavicon);
 app.use(cors(corsOptions)); //all routes are exposed
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
