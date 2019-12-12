@@ -6,16 +6,26 @@ const cors = require("cors");
 port = 3003;
 
 const mongoose = require("mongoose");
-
-//CONTROLLERS/ROUTES
 const recipesController = require("./controllers/recipes.js");
-app.use("/recipes", recipesController);
+
+const whitelist = ["http://localhost:3000"];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+};
 
 //middleware
-app.use(cors());
+app.use(cors(corsOptions)); //all routes are exposed
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-//DB ERRORS
+app.use("/recipes", recipesController);
+// //DB ERRORS
 mongoose.connection.on("error", err =>
   console.log(err.message + "is Mongod not running?")
 );
@@ -30,6 +40,7 @@ mongoose.connect("mongodb://localhost:27017/recipes", {
 mongoose.connection.once("open", () => {
   console.log("connected to mongoose");
 });
+//CONTROLLERS/ROUTES
 
 //Listen
 app.listen(port, () => {

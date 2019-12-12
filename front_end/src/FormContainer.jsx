@@ -119,7 +119,7 @@ class FormContainer extends Component {
     e.preventDefault();
     let recipeData = this.state.newRecipe;
     const response = await Axios.post(
-      `http://localhost:3000/recipes`,
+      `http://localhost:3003/recipes`,
       recipeData
     );
     const data = response.data;
@@ -144,15 +144,13 @@ class FormContainer extends Component {
     });
   }
 
-  async getRecips() {
+  async componentDidMount() {
     const response = await Axios(`{baseURL}/recipes`);
     const data = response.data;
     this.setState({
       recipes: data
     });
   }
-
-  async componentDidMount() {}
 
   render() {
     return (
@@ -168,7 +166,8 @@ class FormContainer extends Component {
               </p>
             </div>
             <Input
-              inputType={"text"}
+              input
+              type={"text"}
               title={"Recipe Name"}
               name={"recipeName"}
               value={this.state.newRecipe.recipeName}

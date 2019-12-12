@@ -164,3 +164,11 @@ hr {
   border-color: #f15831;
   font-weight: 600;
 }
+.form-checkbox {
+  margin: 10px;
+}
+.form-group {
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+}

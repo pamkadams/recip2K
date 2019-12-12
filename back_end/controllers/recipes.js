@@ -21,5 +21,26 @@ recipes.get("/", (req, res) => {
     res.status(200).json(foundRecipes);
   });
 });
+recipes.delete("/:id", (req, res) => {
+  Recipe.findByIdAndRemove(req.body, (error, deletedRecipe) => {
+    if (error) {
+      res.status(400).json({ error: error.message });
+    }
+    res.status(200).send(deletedRecipe);
+  });
+});
 
+recipes.put("/:id", (req, res) => {
+  Recipe.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    (err, updatedRecipe) => {
+      if (err) {
+        res.status(400).json({ error: err.message });
+      }
+      res.status(200).json(updatedRecipe);
+    }
+  );
+});
 module.exports = recipes;
