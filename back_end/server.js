@@ -2,38 +2,43 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-
-port = 3003;
+const favicon = require("serve-favicon");
+const path = require("path");
+const port = process.env.PORT || 3003;
 
 const mongoose = require("mongoose");
 const recipesController = require("./controllers/recipes.js");
 
-function ignoreFavicon(req, res, next) {
-  if (req.originalUrl === "/favicon.ico") {
-    res.status(204).json({ nope: true });
-  } else {
-    next();
-  }
-}
-
-const whitelist = ["http://localhost:3000", "http://localhost:3003"];
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  }
-};
+const whitelist = [
+  "http://localhost:3000",
+  "http://localhost:3003",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:3003"
+];
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   }
+// };
 
 //middleware
-app.use(ignoreFavicon);
-app.use(cors(corsOptions)); //all routes are exposed
+
+app.use(function(req, res, next) {
+  if (req.originalUrl && req.originalUrl.split("/").pop() === "favicon.ico") {
+    return res.sendStatus(204);
+  }
+
+  return next();
+});
+app.use(cors()); //all routes are exposed
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/recipes", recipesController);
 // //DB ERRORS
 mongoose.connection.on("error", err =>
   console.log(err.message + "is Mongod not running?")
@@ -50,7 +55,7 @@ mongoose.connection.once("open", () => {
   console.log("connected to mongoose");
 });
 //CONTROLLERS/ROUTES
-
+app.use("/recipes", recipesController);
 //Listen
 app.listen(port, () => {
   console.log(`London Calling on  ${port}!`);

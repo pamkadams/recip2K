@@ -1,5 +1,5 @@
 import React from "react";
-import FormContainer from "./FormContainer";
+import FormContainer from "./components/FormContainer";
 import "./App.css";
 import RecipeFile from "./Recipefile.js";
 
