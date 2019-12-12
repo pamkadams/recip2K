@@ -8,7 +8,7 @@ port = 3003;
 const mongoose = require("mongoose");
 const recipesController = require("./controllers/recipes.js");
 
-const whitelist = ["http://localhost:3000"];
+const whitelist = ["http://localhost:3000", "http://localhost:3003"];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1) {
