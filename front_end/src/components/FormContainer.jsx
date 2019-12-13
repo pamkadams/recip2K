@@ -46,11 +46,12 @@ class FormContainer extends Component {
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
+
     this.handleServings = this.handleServings.bind(this);
     this.handleName = this.handleName.bind(this);
     this.handleCheckBox = this.handleCheckBox.bind(this);
   }
+
   handleInput(e) {
     let value = e.target.value;
     let name = e.target.name;
@@ -127,10 +128,6 @@ class FormContainer extends Component {
       recipes: data
     });
     console.log("Successful" + data);
-  }
-
-  handleClearForm(e) {
-    e.preventDefault();
     this.setState({
       newRecipe: {
         recipeName: "",
@@ -245,13 +242,6 @@ class FormContainer extends Component {
               style={buttonStyle}
             />
             {/* Submit */}
-            <Button
-              action={this.handleClearForm}
-              type={"secondary"}
-              title={"Clear"}
-              style={buttonStyle}
-            />
-            {/* Clear the form */}
           </fieldset>
         </form>
       </div>
