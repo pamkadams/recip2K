@@ -27,3 +27,4 @@ Inline-style:
 
 ## Sources
 Started my components here: https://www.codementor.io/blizzerand/building-forms-using-react-everything-you-need-to-know-iz3eyoq4y#comments-iz3eyoq4y
+Bootstrap for CSS
