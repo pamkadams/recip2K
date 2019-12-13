@@ -1,9 +1,17 @@
 const express = require("express");
 const recipes = express.Router();
 const Recipe = require("../models/recipes.js");
-//const Tag = require("../models/tags.js");
 
 //ROUTES;
+recipes.get("/", (req, res) => {
+  Recipe.find({}, (err, foundRecipes) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+    }
+    res.status(200).json(foundRecipes);
+  });
+});
+
 recipes.post("/", (req, res) => {
   Recipe.create(req.body, (error, createdRecipe) => {
     if (error) {
@@ -13,16 +21,8 @@ recipes.post("/", (req, res) => {
   });
 });
 
-recipes.get("/", (req, res) => {
-  Recipe.find({}, (err, foundRecipes) => {
-    if (err) {
-      res.status(400).json({ error: err.message });
-    }
-    res.status(200).json(foundRecipes);
-  });
-});
 recipes.delete("/:id", (req, res) => {
-  Recipe.findByIdAndRemove(req.body, (error, deletedRecipe) => {
+  Recipe.findByIdAndRemove(req.params.id, req.body, (error, deletedRecipe) => {
     if (error) {
       res.status(400).json({ error: error.message });
     }

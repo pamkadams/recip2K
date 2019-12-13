@@ -3,7 +3,7 @@ const TextArea = props => (
   <div className="form-group">
     <label className="form-label">{props.title}</label>
     <textarea
-      className="form-control"
+      id="form-control"
       name={props.name}
       type={props.inputType}
       rows={props.rows}

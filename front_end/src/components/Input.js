@@ -6,7 +6,7 @@ const Input = props => {
         {props.title}
       </label>
       <input
-        className="form-control"
+        id="form-control"
         id={props.name}
         name={props.type}
         type={props.inputType}

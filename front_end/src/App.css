@@ -39,11 +39,11 @@ label {
   font-weight: 600;
   font-size: 16px;
   text-align: left;
+  margin: 0.5%;
 }
 
 input[type="text"] {
   width: 50%;
-  text-align: left;
 }
 
 input[type="number"] {
@@ -172,19 +172,25 @@ hr {
   padding-left: 15px;
   text-indent: -15px;
 }
+input {
+  color: #00a6b3;
+}
 
 textarea {
   display: block;
+  color: #00a6b3;
   width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+#custom-checkbox:before {
+  color: #fff;
+  border-color: #00a6b3;
+  background-color: #00a6b3;
+}
 
-textarea {
-  display: block;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+/* Checkbox border radius */
+.custom-checkbox .custom-control-label::before {
+  border-radius: 0.25rem;
 }

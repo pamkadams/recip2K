@@ -154,6 +154,7 @@ class FormContainer extends Component {
       },
       mode: "cors"
     });
+    console.log("got", response);
     const data = response.data;
     this.setState({
       recipes: data

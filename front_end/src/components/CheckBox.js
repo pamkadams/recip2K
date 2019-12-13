@@ -11,7 +11,7 @@ const CheckBox = props => {
           return (
             <label key={option}>
               <input
-                className="form-checkbox"
+                id="custom-checkbox"
                 id={props.name}
                 name={props.name}
                 onChange={props.handlechange}
