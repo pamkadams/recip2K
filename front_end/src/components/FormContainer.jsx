@@ -55,35 +55,28 @@ class FormContainer extends Component {
   handleInput(e) {
     let value = e.target.value;
     let name = e.target.name;
-    this.setState(
-      prevState => {
-        return {
-          newRecipe: {
-            ...prevState.newRecipe,
-            [name]: value
-          }
-        };
-      },
-      () => console.log(this.state.newRecipe)
-    );
+    this.setState(prevState => {
+      return {
+        newRecipe: {
+          ...prevState.newRecipe,
+          [name]: value
+        }
+      };
+    });
   }
 
   handleName(e) {
     let value = e.target.value;
-    this.setState(
-      prevState => ({
-        newRecipe: { ...prevState.newRecipe, recipeName: value }
-      }),
-      () => console.log(this.state.newRecipe)
-    );
+    this.setState(prevState => ({
+      newRecipe: { ...prevState.newRecipe, recipeName: value }
+    }));
   }
 
   handleServings(e) {
     let value = e.target.value;
-    this.setState(
-      prevState => ({ newRecipe: { ...prevState.newRecipe, servings: value } }),
-      () => console.log(this.state.newRecipe)
-    );
+    this.setState(prevState => ({
+      newRecipe: { ...prevState.newRecipe, servings: value }
+    }));
   }
 
   handleCheckBox(e) {
@@ -104,15 +97,12 @@ class FormContainer extends Component {
   handleTextArea(e) {
     console.log("Inside handleTextArea");
     let value = e.target.value;
-    this.setState(
-      prevState => ({
-        newRecipe: {
-          ...prevState.newRecipe,
-          about: value
-        }
-      }),
-      () => console.log(this.state.newRecipe)
-    );
+    this.setState(prevState => ({
+      newRecipe: {
+        ...prevState.newRecipe,
+        about: value
+      }
+    }));
   }
 
   async handleFormSubmit(e) {
