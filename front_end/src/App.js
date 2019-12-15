@@ -2,6 +2,7 @@ import React from "react";
 import FormContainer from "./components/FormContainer";
 import "./App.css";
 import RecipeFile from "./Recipefile.js";
+import Recipes from "./components/Recipes";
 import axios from "axios";
 
 const baseURL = "http://localhost:3003";
@@ -16,8 +17,8 @@ class App extends React.Component {
       recipe: {}
     };
     this.getRecipes = this.getRecipes.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
-    this.getRecipe = this.getRecipe.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+
     //this.printRecipe = this.printRecipe.bind(this);
   }
   componentDidMount() {
@@ -31,7 +32,7 @@ class App extends React.Component {
     this.setState({ recipes: recipes });
   }
 
-  async deleteRecipe(id) {
+  async handleDelete(id) {
     await axios.delete(`${baseURL}/recipes/${id}`);
 
     const filteredRecipes = this.state.recipes.filter(recipe => {
@@ -42,10 +43,10 @@ class App extends React.Component {
       recipes: filteredRecipes
     });
   }
-
-  getRecipe(recipe) {
-    this.setState({ recipe: recipe });
+  async handleUpdate(id) {
+    await axios.put(`${baseURL}/recipes/${id}`);
   }
+
   render() {
     return (
       <main>
@@ -58,22 +59,12 @@ class App extends React.Component {
             width="15%"
           />
         </div>
-        <table>
-          <tbody>
-            {this.state.recipes.map(recipe => {
-              return (
-                <tr onMouseOver={() => this.getRecipe(recipe)} key={recipe._id}>
-                  <td>{recipe.recipeName}</td>
-                  <td onClick={() => this.updateRecipe(recipe._id)}>Update</td>
-                  <td onClick={() => this.printRecipe(recipe)} key={recipe._id}>
-                    Print
-                  </td>
-                  <td onClick={() => this.deleteRecipe(recipe._id)}>Delete</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <Recipes
+          recipes={this.state.recipes}
+          handleDelete={this.handleDelete}
+          handleUpdate={this.handleUpdate}
+        />
+
         <div className="App">
           <RecipeFile title="PDF test" />
           <FormContainer />

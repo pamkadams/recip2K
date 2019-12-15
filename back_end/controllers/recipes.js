@@ -3,14 +3,28 @@ const recipes = express.Router();
 const Recipe = require("../models/recipes.js");
 
 //ROUTES;
-recipes.get("/", (req, res) => {
+recipes.get("/search", (req, res) => {
+  console.log(req.query.category);
   Recipe.find({}, (err, foundRecipes) => {
     if (err) {
       res.status(400).json({ error: err.message });
     }
-    res.status(200).json(foundRecipes);
+
+    const newArray = foundRecipes.filter(
+      recipe => recipe.category === req.query.category
+    );
+    res.status(200).send(newArray);
   });
 });
+
+// recipes.get("/", (req, res) => {
+//   Recipe.find({}, (err, foundRecipes) => {
+//     if (err) {
+//       res.status(400).json({ error: err.message });
+//     }
+//     res.status(200).json(foundRecipes);
+//   });
+// });
 
 recipes.post("/", (req, res) => {
   Recipe.create(req.body, (error, createdRecipe) => {
