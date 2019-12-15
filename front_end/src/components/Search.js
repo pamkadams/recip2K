@@ -5,15 +5,14 @@ import Axios from "axios";
 import CheckBox from "./CheckBox";
 import Input from "./Input";
 
-import Select from "./Select";
 import Button from "./Button";
 
-class FormContainer extends Component {
-  //build out the form fields here. e.g. recipe change the newRecipe to newRecipe
+class Search extends Component {
+  //build out the form fields here. e.g. recipe change the searchRecipe to searchRecipe
   constructor(props) {
     super(props);
     this.state = {
-      newRecipe: {
+      searchRecipe: {
         recipeName: "",
         category: "",
         tags: []
@@ -53,13 +52,12 @@ class FormContainer extends Component {
     this.setState(
       prevState => {
         return {
-          newRecipe: {
-            ...prevState.newRecipe,
+          searchRecipe: {
             [name]: value
           }
         };
       },
-      () => console.log(this.state.newRecipe)
+      () => console.log(this.state.searchRecipe)
     );
   }
 
@@ -67,33 +65,33 @@ class FormContainer extends Component {
     let value = e.target.value;
     this.setState(
       prevState => ({
-        newRecipe: { ...prevState.newRecipe, recipeName: value }
+        searchRecipe: { ...prevState.searchRecipe, recipeName: value }
       }),
-      () => console.log(this.state.newRecipe)
+      () => console.log(this.state.searchRecipe)
     );
   }
 
   handleCheckBox(e) {
     const newSelection = e.target.value;
     let newSelectionArray;
-    if (this.state.newRecipe.tags.indexOf(newSelection) > -1) {
-      newSelectionArray = this.state.newRecipe.tags.filter(
+    if (this.state.searchRecipe.tags.indexOf(newSelection) > -1) {
+      newSelectionArray = this.state.searchRecipe.tags.filter(
         s => s !== newSelection
       );
     } else {
-      newSelectionArray = [...this.state.newRecipe.tags, newSelection];
+      newSelectionArray = [...this.state.searchRecipe.tags, newSelection];
     }
     this.setState(prevState => ({
-      newRecipe: { ...prevState.newRecipe, tags: newSelectionArray }
+      searchRecipe: { ...prevState.searchRecipe, tags: newSelectionArray }
     }));
   }
 
   async handleFormSubmit(e) {
     //form submission logic
     e.preventDefault();
-    let recipeData = this.state.newRecipe;
-    const response = await Axios.post(
-      `http://localhost:3003/recipes`,
+    let recipeData = this.state.searchRecipe;
+    const response = await Axios.get(
+      `http://localhost:3003/recipes/search`,
       recipeData
     );
     const data = response.data;
@@ -106,14 +104,10 @@ class FormContainer extends Component {
   handleClearForm(e) {
     e.preventDefault();
     this.setState({
-      newRecipe: {
+      searchRecipe: {
         recipeName: "",
-        servings: "",
-        recipeURL: "",
         category: "",
-        tags: [],
-        ingredients: "",
-        instructions: ""
+        tags: []
       }
     });
   }
@@ -121,7 +115,7 @@ class FormContainer extends Component {
   async componentDidMount() {
     const response = await Axios({
       method: "GET",
-      url: "http://localhost:3003/recipes",
+      url: "http://localhost:3003/recipes/search",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
@@ -153,69 +147,45 @@ class FormContainer extends Component {
               type={"text"}
               title={"Recipe Name"}
               name={"recipeName"}
-              value={this.state.newRecipe.recipeName}
+              value={this.state.searchRecipe.recipeName}
               placeholder={"Enter the name of the recipe"}
+              selectedOptions={this.state.searchRecipe.tags}
               handlechange={this.handleInput}
             />
             {/* Name of the recipe */}
-            <Input
-              input
-              type={"number"}
-              title={"Servings"}
-              name={"servings"}
-              value={this.state.newRecipe.servings}
-              handlechange={this.handleServings}
-            />
-            {/* servings */}
-            <Input
-              input
-              type={"text"}
-              title={"Original URL"}
-              name={"recipeURL"}
-              value={this.state.newRecipe.recipeURL}
-              placeholder={"Enter the URL for the original recipe"}
-              handlechange={this.handleInput}
-            />
-            {/* Name of the recipe */}
-            <Select
-              title={"Category"}
-              name={"category"}
-              options={this.state.category}
-              value={this.state.newRecipe.category}
-              placeholder={"Select meal category/course"}
-              handlechange={this.handleInput}
-            />
-            {/*meal */}
+
+            <div className="form-group">
+              <label htmlFor={this.state.category}>Category</label>
+              <select
+                name={this.state.category}
+                value={this.state.category.value}
+                onChange={this.state.category.handlechange}
+                selectedOptions={this.state.searchRecipe.tags}
+                handlechange={this.handleInput}
+              >
+                {this.state.category.map(option => {
+                  return (
+                    <option key={option} value={option} label={option}>
+                      {option}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
             <CheckBox
               title={"Tags"}
               name={"tags"}
               options={this.state.tags}
-              selectedOptions={this.state.newRecipe.tags}
+              selectedOptions={this.state.searchRecipe.tags}
               handlechange={this.handleCheckBox}
             />
             {/* List of recipe tags */}
-            <TextArea
-              title={"Ingredients"}
-              rows={20}
-              value={this.state.newRecipe.ingredients}
-              name={"ingredients"}
-              handlechange={this.handleInput}
-              placeholder={"Add one ingredient per line"}
-            />
-            {/* ingredients*/}
-            <TextArea
-              title={"Instructions"}
-              rows={20}
-              value={this.state.newRecipe.instructions}
-              name={"instructions"}
-              handlechange={this.handleInput}
-              placeholder={"Add recipe instructions"}
-            />
+
             {/* instructions*/}
             <Button
               action={this.handleFormSubmit}
               type={"primary"}
-              title={"Submit"}
+              title={"Search"}
               style={buttonStyle}
             />
             {/* Submit */}
@@ -235,4 +205,4 @@ class FormContainer extends Component {
 const buttonStyle = {
   margin: "10px"
 };
-export default FormContainer;
+export default Search;

@@ -131,23 +131,6 @@ class FormContainer extends Component {
     });
   }
 
-  async componentDidMount() {
-    const response = await Axios({
-      method: "GET",
-      url: "http://localhost:3003/recipes",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      mode: "cors"
-    });
-    console.log("got", response);
-    const data = response.data;
-    this.setState({
-      recipes: data
-    });
-  }
-
   render() {
     return (
       <div>

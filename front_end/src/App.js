@@ -3,6 +3,7 @@ import FormContainer from "./components/FormContainer";
 import "./App.css";
 import RecipeFile from "./Recipefile.js";
 import Recipes from "./components/Recipes";
+import Search from "./components/Search";
 import axios from "axios";
 
 const baseURL = "http://localhost:3003";
@@ -68,6 +69,7 @@ class App extends React.Component {
         <div className="App">
           <RecipeFile title="PDF test" />
           <FormContainer />
+          <Search />
         </div>
       </main>
     );

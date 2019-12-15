@@ -4,17 +4,19 @@ const Recipe = require("../models/recipes.js");
 
 //ROUTES;
 recipes.get("/search", (req, res) => {
-  console.log(req.query.category);
-  //const searchTags = req.query.tags;
-  const searchTags = ["soup", "instant pot"];
+  const category = req.query.category;
+  const searchTags = req.query.tags.split(" ");
+  console.log(searchTags);
+
   Recipe.find({}, (err, foundRecipes) => {
     if (err) {
       res.status(400).json({ error: err.message });
     }
     //filter all recipes by category and then by tags
     const newArray = foundRecipes.filter(
-      recipe => recipe.category === req.query.category
+      recipe => recipe.category === category
     );
+    console.log("found dessert", newArray);
 
     const finalArray = newArray.filter(recipe => {
       const tags = recipe.tags;
