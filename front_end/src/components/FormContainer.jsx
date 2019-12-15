@@ -141,7 +141,7 @@ class FormContainer extends Component {
             <div className="input_block">
               <p>
                 Enter the recipe information below and then press Submit to
-                enter the receipt into the database.
+                enter it into the database.
               </p>
             </div>
             <Input

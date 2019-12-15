@@ -13,7 +13,7 @@ class Search extends Component {
     super(props);
     this.state = {
       searchRecipe: {
-        recipeName: "",
+        keyword: "",
         category: "",
         tags: []
       },
@@ -43,29 +43,26 @@ class Search extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
 
-    this.handleName = this.handleName.bind(this);
+    this.handleKeyword = this.handleKeyword.bind(this);
     this.handleCheckBox = this.handleCheckBox.bind(this);
   }
   handleInput(e) {
     let value = e.target.value;
     let name = e.target.name;
-    this.setState(
-      prevState => {
-        return {
-          searchRecipe: {
-            [name]: value
-          }
-        };
-      },
-      () => console.log(this.state.searchRecipe)
-    );
+    this.setState(prevState => {
+      return {
+        searchRecipe: {
+          [name]: value
+        }
+      };
+    });
   }
 
-  handleName(e) {
+  handleKeyword(e) {
     let value = e.target.value;
     this.setState(
       prevState => ({
-        searchRecipe: { ...prevState.searchRecipe, recipeName: value }
+        searchRecipe: { ...prevState.searchRecipe, keyword: value }
       }),
       () => console.log(this.state.searchRecipe)
     );
@@ -112,47 +109,27 @@ class Search extends Component {
     });
   }
 
-  async componentDidMount() {
-    const response = await Axios({
-      method: "GET",
-      url: "http://localhost:3003/recipes/search",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      mode: "cors"
-    });
-    console.log("got", response);
-    const data = response.data;
-    this.setState({
-      recipes: data
-    });
-  }
-
   render() {
     return (
       <div>
-        <h2>Adding a Recipe</h2>;
+        <h2>Search for Recipes</h2>;
         <form className="container" onSubmit={this.handleFormSubmit}>
           <fieldset>
-            <legend id="#add">Add a Recipe</legend>
             <div className="input_block">
               <p>
-                Enter the recipe information below and then press Submit to
-                enter the receipt into the database.
+                Enter the recipe information below and then press Search to
+                locate the recipe in the database.
               </p>
             </div>
             <Input
               input
               type={"text"}
-              title={"Recipe Name"}
-              name={"recipeName"}
-              value={this.state.searchRecipe.recipeName}
-              placeholder={"Enter the name of the recipe"}
-              selectedOptions={this.state.searchRecipe.tags}
+              title={"Keyword"}
+              name={"keyword"}
+              value={this.state.searchRecipe.keyword}
+              placeholder={"Keyword Search"}
               handlechange={this.handleInput}
             />
-            {/* Name of the recipe */}
 
             <div className="form-group">
               <label htmlFor={this.state.category}>Category</label>
@@ -160,7 +137,6 @@ class Search extends Component {
                 name={this.state.category}
                 value={this.state.category.value}
                 onChange={this.state.category.handlechange}
-                selectedOptions={this.state.searchRecipe.tags}
                 handlechange={this.handleInput}
               >
                 {this.state.category.map(option => {
@@ -179,7 +155,27 @@ class Search extends Component {
               selectedOptions={this.state.searchRecipe.tags}
               handlechange={this.handleCheckBox}
             />
-            {/* List of recipe tags */}
+            <label htmlFor={this.state.name} className="form-label">
+              {this.state.title}
+            </label>
+            <div className="checkbox-group">
+              {this.state.tags.map(tag => {
+                return (
+                  <label key={tag}>
+                    <input
+                      id="custom-checkbox"
+                      id={this.state.name}
+                      name={this.state.name}
+                      onChange={this.state.handlechange}
+                      value={tag}
+                      checked={this.state.selectedOptions.indexOf(tag) > -1}
+                      type="checkbox"
+                    />
+                    {tag}
+                  </label>
+                );
+              })}
+            </div>
 
             {/* instructions*/}
             <Button
