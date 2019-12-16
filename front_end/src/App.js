@@ -3,6 +3,7 @@ import FormContainer from "./components/FormContainer";
 import "./App.css";
 import RecipeFile from "./Recipefile.js";
 import Recipes from "./components/Recipes";
+import Search from "./components/Search";
 
 import axios from "axios";
 
@@ -61,7 +62,7 @@ class App extends React.Component {
             width="15%"
           />
         </div>
-
+        <Search />
         <Recipes
           recipes={this.state.recipes}
           handleDelete={this.handleDelete}

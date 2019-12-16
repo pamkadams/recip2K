@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import CheckBox from "./CheckBox";
 import Input from "./Input";
+import Select from "./Select";
 
 import Button from "./Button";
 
@@ -87,7 +88,7 @@ class Search extends Component {
     //form submission logic
     e.preventDefault();
     let recipeData = this.state.searchRecipe;
-    const response = await Axios.get(
+    const response = await Axios.put(
       `http://localhost:3003/recipes/search`,
       recipeData
     );
@@ -95,7 +96,7 @@ class Search extends Component {
     this.setState({
       recipes: data
     });
-    console.log("Successful" + data);
+    console.log("Search successful" + data);
   }
 
   handleClearForm(e) {
@@ -130,24 +131,14 @@ class Search extends Component {
               placeholder={"Keyword Search"}
               handlechange={this.handleInput}
             />
-
-            <div className="form-group">
-              <label htmlFor={this.state.category}>Category</label>
-              <select
-                name={this.state.category}
-                value={this.state.category.value}
-                onChange={this.state.category.handlechange}
-                handlechange={this.handleInput}
-              >
-                {this.state.category.map(option => {
-                  return (
-                    <option key={option} value={option} label={option}>
-                      {option}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
+            <Select
+              title={"Category"}
+              name={"category"}
+              options={this.state.category}
+              value={this.state.searchRecipe.category}
+              placeholder={"Select meal category/course"}
+              handlechange={this.handleInput}
+            />
             <CheckBox
               title={"Tags"}
               name={"tags"}
@@ -155,29 +146,7 @@ class Search extends Component {
               selectedOptions={this.state.searchRecipe.tags}
               handlechange={this.handleCheckBox}
             />
-            <label htmlFor={this.state.name} className="form-label">
-              {this.state.title}
-            </label>
-            <div className="checkbox-group">
-              {this.state.tags.map(tag => {
-                return (
-                  <label key={tag}>
-                    <input
-                      id="custom-checkbox"
-                      id={this.state.name}
-                      name={this.state.name}
-                      onChange={this.state.handlechange}
-                      value={tag}
-                      checked={this.state.selectedOptions.indexOf(tag) > -1}
-                      type="checkbox"
-                    />
-                    {tag}
-                  </label>
-                );
-              })}
-            </div>
 
-            {/* instructions*/}
             <Button
               action={this.handleFormSubmit}
               type={"primary"}
