@@ -5,8 +5,8 @@ import Axios from "axios";
 import CheckBox from "./CheckBox";
 import Input from "./Input";
 import TextArea from "./TextArea";
-import Select from "./Select";
-import Button from "./Button";
+// import Select from "./Select";
+// import Button from "./Button";
 
 class FormContainer extends Component {
   //build out the form fields here. e.g. recipe change the newRecipe to newRecipe
@@ -16,7 +16,7 @@ class FormContainer extends Component {
       newRecipe: {
         recipeName: "",
         servings: "",
-        recipeURL: "",
+        recipeUrl: "",
         category: "",
         tags: [],
         ingredients: "",
@@ -46,10 +46,28 @@ class FormContainer extends Component {
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleServings = this.handleServings.bind(this);
     this.handleName = this.handleName.bind(this);
     this.handleCheckBox = this.handleCheckBox.bind(this);
+  }
+  componentWillMount() {
+    const recipe = this.props.recipe;
+    if (recipe) {
+      this.setState({
+        recipeName: recipe.recipeName,
+        servings: recipe.servings,
+        recipeUrl: recipe.recipeUrl,
+        category: recipe.category,
+        tags: [...recipe.tags],
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+        id: recipe._id
+      });
+    }
+  }
+  handleUpdate(event) {
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   handleInput(e) {
@@ -129,6 +147,9 @@ class FormContainer extends Component {
         instructions: ""
       }
     });
+    if (this.props.recipe) {
+      this.props.toggleForm();
+    }
   }
 
   render() {
@@ -172,7 +193,7 @@ class FormContainer extends Component {
               placeholder={"Enter the URL for the original recipe"}
               handlechange={this.handleInput}
             />
-            {/* Name of the recipe */}
+            {/* Name of the recipe
             <Select
               title={"Category"}
               name={"category"}
@@ -180,7 +201,7 @@ class FormContainer extends Component {
               value={this.state.newRecipe.category}
               placeholder={"Select meal category/course"}
               handlechange={this.handleInput}
-            />
+            /> */}
             {/*meal */}
             <CheckBox
               title={"Tags"}
@@ -208,13 +229,10 @@ class FormContainer extends Component {
               placeholder={"Add recipe instructions"}
             />
             {/* instructions*/}
-            <Button
-              action={this.handleFormSubmit}
-              type={"primary"}
-              title={"Submit"}
-              style={buttonStyle}
+            <input
+              type="submit"
+              value={this.props.recipe ? "update recipe" : "add recipe"}
             />
-            {/* Submit */}
           </fieldset>
         </form>
       </div>
