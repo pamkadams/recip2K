@@ -16,7 +16,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       recipes: [],
-      recipe: {}
+      recipe: {},
+      createBtn: false
     };
     this.getRecipes = this.getRecipes.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -25,6 +26,11 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.getRecipes();
+  }
+  changeForm() {
+    this.setState(prevState => ({
+      formVisible: !prevState.formVisible
+    }));
   }
 
   async getRecipes() {
@@ -50,10 +56,13 @@ class App extends React.Component {
   }
 
   render() {
+    const renderForm = this.state.createBtn ? <FormContainer /> : <Search />;
     return (
       <main>
         <div>
           <h1>What do you want to cook today? </h1>
+
+          <button onClick={this.changeForm}>Add a recipe</button>
           <img
             id="recipe_chevron"
             src="images/recipe_chevron_orange.png"
@@ -62,7 +71,7 @@ class App extends React.Component {
             width="15%"
           />
         </div>
-        <Search />
+        {renderForm}
         <Recipes
           recipes={this.state.recipes}
           handleDelete={this.handleDelete}
@@ -71,7 +80,6 @@ class App extends React.Component {
 
         <div className="App">
           <RecipeFile title="PDF test" />
-          <FormContainer />
         </div>
       </main>
     );

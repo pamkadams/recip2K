@@ -4,6 +4,7 @@ const Recipe = require("../models/recipes.js");
 
 //ROUTES;
 recipes.get("/search", (req, res) => {
+  console.log("Search registered", req.query);
   const category = req.query.category;
   const searchTags = req.query.tags;
   const searchWords = req.query.recipeName;
@@ -58,7 +59,7 @@ recipes.delete("/:id", (req, res) => {
 });
 
 recipes.put("/:id", (req, res) => {
-  Recipe.findByIdAndUpdate(
+  Recipe.updateOne(
     req.params.id,
     req.body,
     { new: true },

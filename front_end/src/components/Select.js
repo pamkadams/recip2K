@@ -4,11 +4,7 @@ const Select = props => {
   return (
     <div className="form-group">
       <label htmlFor={props.name}>{props.title}</label>
-      <select
-        name={props.name}
-        value={props.value}
-        onChange={props.handlechange}
-      >
+      <select name="category" value={props.value} onChange={props.handlechange}>
         <option value=" " disabled>
           {props.placeholder}
         </option>

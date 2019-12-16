@@ -40,6 +40,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // //DB ERRORS
+mongoose.set("useUnifiedTopology", true);
 mongoose.connection.on("error", err =>
   console.log(err.message + "is Mongod not running?")
 );

@@ -88,7 +88,7 @@ class Search extends Component {
     //form submission logic
     e.preventDefault();
     let recipeData = this.state.searchRecipe;
-    const response = await Axios.put(
+    const response = await Axios.post(
       `http://localhost:3003/recipes/search`,
       recipeData
     );
