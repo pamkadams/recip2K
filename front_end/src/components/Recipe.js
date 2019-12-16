@@ -22,7 +22,7 @@ class Recipe extends Component {
         {this.state.formVisible ? (
           <FormContainer
             recipe={recipe}
-            handleSubmit={handleUpdate}
+            handleFormSubmit={handleUpdate}
             toggleForm={this.toggleForm}
           />
         ) : (

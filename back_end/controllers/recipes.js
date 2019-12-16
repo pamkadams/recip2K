@@ -59,13 +59,14 @@ recipes.delete("/:id", (req, res) => {
 });
 
 recipes.put("/:id", (req, res) => {
+  console.log("id", req);
   Recipe.updateOne(
-    req.params.id,
+    { _id: { $eq: req.body.recipeId } },
     req.body,
-    { new: true },
+
     (err, updatedRecipe) => {
       if (err) {
-        res.status(400).json({ error: err.message });
+        return res.status(400).json({ error: err.message });
       }
       res.status(200).json(updatedRecipe);
     }

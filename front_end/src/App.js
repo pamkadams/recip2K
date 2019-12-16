@@ -52,9 +52,9 @@ class App extends React.Component {
       recipes: filteredRecipes
     });
   }
-  async handleUpdate(id) {
-    await axios.put(`${baseURL}/recipes/${id}`);
-  }
+  // async handleUpdate(id) {
+  //   await axios.put(`${baseURL}/recipes/${id}`);
+  // }
 
   render() {
     const renderForm = this.state.createBtn ? <FormContainer /> : <Search />;

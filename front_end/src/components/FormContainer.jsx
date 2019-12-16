@@ -16,7 +16,7 @@ class FormContainer extends Component {
       newRecipe: {
         recipeName: "",
         servings: "",
-        recipeURL: "",
+        recipeUrl: "",
         category: "",
         tags: [],
         ingredients: "",
@@ -55,16 +55,18 @@ class FormContainer extends Component {
 
   async componentDidMount() {
     await console.log("Mounted", this.props.recipe);
-    if (this.props.recipe) {
+    const recipe = this.props.recipe;
+    if (recipe) {
       this.setState({
         newRecipe: {
-          recipeName: this.props.recipe.recipeName,
-          servings: "",
-          recipeURL: "",
-          category: "",
-          tags: [],
-          ingredients: "",
-          instructions: ""
+          recipeName: recipe.recipeName,
+          recipeId: recipe._id,
+          servings: recipe.servings,
+          recipeUrl: recipe.recipeUrl,
+          category: recipe.category,
+          tags: recipe.tags,
+          ingredients: recipe.ingredients,
+          instructions: recipe.instructions
         },
         update: true
       });
@@ -127,11 +129,12 @@ class FormContainer extends Component {
   async handleFormSubmit(e) {
     //form submission logic
     e.preventDefault();
+
     let recipeData = this.state.newRecipe;
     console.log("sent", recipeData);
-    if (this.state.update) {
+    if (recipeData.recipeId) {
       const response = await Axios.put(
-        `http://localhost:3003/recipes/${this.props.recipe._id}`,
+        `http://localhost:3003/recipes/${recipeData.recipeId}`,
         recipeData
       );
     } else {
@@ -149,7 +152,7 @@ class FormContainer extends Component {
       newRecipe: {
         recipeName: "",
         servings: "",
-        recipeURL: "",
+        recipeUrl: "",
         category: "",
         tags: [],
         ingredients: "",
@@ -194,8 +197,8 @@ class FormContainer extends Component {
               input
               type={"text"}
               title={"Original URL"}
-              name={"recipeURL"}
-              value={this.state.newRecipe.recipeURL}
+              name={"recipeUrl"}
+              value={this.state.newRecipe.recipeUrl}
               placeholder={"Enter the URL for the original recipe"}
               handlechange={this.handleInput}
             />
