@@ -14,13 +14,9 @@ class FormContainer extends Component {
     super(props);
     this.state = {
       newRecipe: {
-        recipeName: "",
-        servings: "",
-        recipeURL: "",
+        keyword: "",
         category: "",
-        tags: [],
-        ingredients: "",
-        instructions: ""
+        tags: []
       },
       category: [
         "breakfast",
@@ -42,34 +38,8 @@ class FormContainer extends Component {
         "summer",
         "holidays",
         "entertaining"
-      ],
-      update: false
+      ]
     };
-    this.handleInput = this.handleInput.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
-    this.handleServings = this.handleServings.bind(this);
-    this.handleName = this.handleName.bind(this);
-    this.handleCheckBox = this.handleCheckBox.bind(this);
-  }
-
-  async componentDidMount() {
-    await console.log("Mounted", this.props.recipe);
-    if (this.props.recipe) {
-      this.setState({
-        newRecipe: {
-          recipeName: this.props.recipe.recipeName,
-          servings: "",
-          recipeURL: "",
-          category: "",
-          tags: [],
-          ingredients: "",
-          instructions: ""
-        },
-        update: true
-      });
-    }
-  }
 
   handleInput(e) {
     let value = e.target.value;
@@ -128,23 +98,15 @@ class FormContainer extends Component {
     //form submission logic
     e.preventDefault();
     let recipeData = this.state.newRecipe;
-    console.log("sent", recipeData);
-    if (this.state.update) {
-      const response = await Axios.put(
-        `http://localhost:3003/recipes/${this.props.recipe._id}`,
-        recipeData
-      );
-    } else {
-      const response = await Axios.post(
-        `http://localhost:3003/recipes`,
-        recipeData
-      );
-      const data = response.data;
-      this.setState({
-        recipes: data
-      });
-      console.log("Successful" + data);
-    }
+    const response = await Axios.post(
+      `http://localhost:3003/recipes`,
+      recipeData
+    );
+    const data = response.data;
+    this.setState({
+      recipes: data
+    });
+    console.log("Successful" + data);
     this.setState({
       newRecipe: {
         recipeName: "",

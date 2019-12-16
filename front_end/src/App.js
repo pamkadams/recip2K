@@ -52,6 +52,7 @@ class App extends React.Component {
     return (
       <main>
         <div>
+          <h1>What do you want to cook today? </h1>
           <img
             id="recipe_chevron"
             src="images/recipe_chevron_orange.png"
@@ -60,6 +61,7 @@ class App extends React.Component {
             width="15%"
           />
         </div>
+
         <Recipes
           recipes={this.state.recipes}
           handleDelete={this.handleDelete}

@@ -3,34 +3,31 @@ const recipes = express.Router();
 const Recipe = require("../models/recipes.js");
 
 //ROUTES;
-// recipes.get("/search", (req, res) => {
-//   const category = req.query.category;
-//   const searchTags = req.query.tags.split(" ");
-//   const searchWords = req.query.recipeName.split(" ");
-//   console.log(searchTags);
+recipes.get("/search", (req, res) => {
+  const category = req.query.category;
+  const searchTags = req.query.tags;
+  const searchWords = req.query.recipeName;
 
-//   Recipe.find({}, (err, foundRecipes) => {
-//     if (err) {
-//       res.status(400).json({ error: err.message });
-//     }
-//     //filter all recipes by category and then by tags
+  Recipe.find({}, (err, foundRecipes) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+    }
+    //filter all recipes by category and then by tags
+    const newArray = foundRecipes
+      .filter(recipe => recipe.category === category)
+      .filter(recipe => {
+        const tags = recipe.tags;
 
-//     const newArray = foundRecipes.filter(
-//       recipe => recipe.category === category
-//     );
-//     console.log("found dessert", newArray);
+        return tags.some(tag => searchTags.includes(tag));
+      });
 
-//     const finalArray = newArray.filter(recipe => {
-//       const tags = recipe.tags;
-//       return tags.some(tag => searchTags.includes(tag));
-//     });
-//     if (recipeName.length > 0) {
-//       lowerCaseRecipes = foundRecipes.map(recipe => recipe.recipeName.toLowerCase());
-//       lowerCaseRecipes.filter(recipe=> return recipe.searchWordsinQuery.includes(recipe.recipeName)
-//     };
-//     res.status(200).send(finalArray);
-//   });
-// });
+    // if (recipeName.length > 0) {
+    //   lowerCaseRecipes = foundRecipes.map(recipe => recipe.recipeName.toLowerCase());
+    //   lowerCaseRecipes.filter(recipe=> return recipe.searchWordsinQuery.includes(recipe.recipeName)
+    // };
+    res.status(200).send(newArray);
+  });
+});
 
 recipes.get("/", (req, res) => {
   Recipe.find({}, (err, foundRecipes) => {
