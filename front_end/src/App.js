@@ -21,6 +21,7 @@ class App extends React.Component {
     };
     this.getRecipes = this.getRecipes.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.changeForm = this.changeForm.bind(this);
 
     //this.printRecipe = this.printRecipe.bind(this);
   }
@@ -29,7 +30,7 @@ class App extends React.Component {
   }
   changeForm() {
     this.setState(prevState => ({
-      formVisible: !prevState.formVisible
+      createBtn: !prevState.createBtn
     }));
   }
 
