@@ -4,15 +4,17 @@ const Recipe = require("../models/recipes.js");
 
 //ROUTES;
 recipes.get("/search", (req, res) => {
-  console.log("search successful", typeof req.query.tags);
+  //variables for query including RegEx for keyword
   const category = req.query.category;
   const searchTags = req.query.tags;
   const keyword = new RegExp(`${req.query.keyword}`, "i", "g");
 
+  //search all recipes in db
   Recipe.find({}, (err, foundRecipes) => {
     if (err) {
       res.status(400).json({ error: err.message });
     }
+
     //filter all recipes by category and then by tags
     let newArray = foundRecipes.filter(recipe => recipe.category === category);
     if (searchTags) {
@@ -23,7 +25,7 @@ recipes.get("/search", (req, res) => {
     }
     if (newArray.length === 0) newArray.push("No results found.");
 
-    //just tag search no meal type
+    //filter by tag no category
     let tagArray = [];
     if (searchTags && !category) {
       tagArray = foundRecipes.filter(recipe => {
@@ -32,6 +34,7 @@ recipes.get("/search", (req, res) => {
       });
     }
     if (tagArray.length === 0) tagArray.push("No results found.");
+
     //if keyword exists then search the database for it in the four fields below
     let keywordArray = [];
 
@@ -45,6 +48,7 @@ recipes.get("/search", (req, res) => {
         //recipe.tags.some(tag=>k)
       );
     }
+    if (keywordArray.length === 0) keywordArray.push("No results found.");
     res.status(200).send(tagArray);
   });
 });

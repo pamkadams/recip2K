@@ -1,7 +1,6 @@
 import React from "react";
 import FormContainer from "./components/FormContainer";
 import "./App.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import RecipeFile from "./Recipefile.js";
 import Recipes from "./components/Recipes";
 import Search from "./components/Search";
@@ -58,7 +57,6 @@ class App extends React.Component {
   // }
 
   render() {
-    const renderForm = this.state.createBtn ? <FormContainer /> : <Search />;
     return (
       <main>
         <div>
@@ -73,7 +71,7 @@ class App extends React.Component {
             width="15%"
           />
         </div>
-        {renderForm}
+
         <Recipes
           recipes={this.state.recipes}
           handleDelete={this.handleDelete}
