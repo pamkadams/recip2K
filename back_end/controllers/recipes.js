@@ -4,7 +4,7 @@ const Recipe = require("../models/recipes.js");
 
 //ROUTES;
 recipes.get("/search", (req, res) => {
-  console.log("Search registered", req.query);
+  console.log("search successful", req.query.tags);
   const category = req.query.category;
   const searchTags = req.query.tags;
   const searchWords = req.query.recipeName;
@@ -14,13 +14,13 @@ recipes.get("/search", (req, res) => {
       res.status(400).json({ error: err.message });
     }
     //filter all recipes by category and then by tags
-    const newArray = foundRecipes
-      .filter(recipe => recipe.category === category)
-      .filter(recipe => {
+    let newArray = foundRecipes.filter(recipe => recipe.category === category);
+    if (searchTags) {
+      newArray = newArray.filter(recipe => {
         const tags = recipe.tags;
-
         return tags.some(tag => searchTags.includes(tag));
       });
+    }
 
     // if (recipeName.length > 0) {
     //   lowerCaseRecipes = foundRecipes.map(recipe => recipe.recipeName.toLowerCase());
@@ -59,7 +59,6 @@ recipes.delete("/:id", (req, res) => {
 });
 
 recipes.put("/:id", (req, res) => {
-  console.log("id", req);
   Recipe.updateOne(
     { _id: { $eq: req.body.recipeId } },
     req.body,
