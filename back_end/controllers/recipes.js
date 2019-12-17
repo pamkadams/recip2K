@@ -4,11 +4,11 @@ const Recipe = require("../models/recipes.js");
 
 //ROUTES;
 recipes.get("/search", (req, res) => {
-  console.log("search successful", req.query.keyword.length);
+  console.log("search successful", typeof req.query.tags);
   const category = req.query.category;
   const searchTags = req.query.tags;
-  //const keyword = req.query.keyword;
   const keyword = new RegExp(`${req.query.keyword}`, "i", "g");
+
   Recipe.find({}, (err, foundRecipes) => {
     if (err) {
       res.status(400).json({ error: err.message });
@@ -22,16 +22,30 @@ recipes.get("/search", (req, res) => {
       });
     }
     if (newArray.length === 0) newArray.push("No results found.");
-    let keywordArray;
-    //keyword.length doesn't return anything so you have to use the original variable to get the length
-    if (req.query.keyword.length > 0) {
+
+    //just tag search no meal type
+    let tagArray = [];
+    if (searchTags && !category) {
+      tagArray = foundRecipes.filter(recipe => {
+        const tags = recipe.tags;
+        return tags.some(tag => searchTags.includes(tag));
+      });
+    }
+    if (tagArray.length === 0) tagArray.push("No results found.");
+    //if keyword exists then search the database for it in the four fields below
+    let keywordArray = [];
+
+    if (req.query.keyword) {
       //const regexString = new RegExp(`${keyword}`, "i", "g");
       keywordArray = foundRecipes.filter(
         recipe =>
-          recipe.recipeName.match(keyword) || recipe.ingredients.match(keyword)
+          recipe.recipeName.match(keyword) ||
+          recipe.ingredients.match(keyword) ||
+          recipe.category.match(keyword)
+        //recipe.tags.some(tag=>k)
       );
     }
-    res.status(200).send(keywordArray);
+    res.status(200).send(tagArray);
   });
 });
 recipes.get("/", (req, res) => {
