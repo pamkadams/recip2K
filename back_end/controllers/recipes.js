@@ -26,8 +26,9 @@ recipes.get("/search", (req, res) => {
     //keyword.length doesn't return anything so you have to use the original variable to get the length
     if (req.query.keyword.length > 0) {
       //const regexString = new RegExp(`${keyword}`, "i", "g");
-      keywordArray = foundRecipes.filter(recipe =>
-        recipe.recipeName.match(keyword)
+      keywordArray = foundRecipes.filter(
+        recipe =>
+          recipe.recipeName.match(keyword) || recipe.ingredients.match(keyword)
       );
     }
     res.status(200).send(keywordArray);
