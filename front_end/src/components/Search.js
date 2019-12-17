@@ -113,14 +113,11 @@ class Search extends Component {
   render() {
     return (
       <div>
-        <h2>Search for Recipes</h2>;
+        <h2>Search for Recipes</h2>
         <form className="container" onSubmit={this.handleFormSubmit}>
           <fieldset>
             <div className="input_block">
-              <p>
-                Enter the recipe information below and then press Search to
-                locate the recipe in the database.
-              </p>
+              <p>Search by keyword or category/tags.</p>
             </div>
             <Input
               input

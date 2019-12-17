@@ -164,16 +164,8 @@ class FormContainer extends Component {
   render() {
     return (
       <div>
-        <h2>Adding a Recipe</h2>;
         <form className="container" onSubmit={this.handleFormSubmit}>
           <fieldset>
-            <legend id="#add">Add a Recipe</legend>
-            <div className="input_block">
-              <p>
-                Enter the recipe information below and then press Submit to
-                enter it into the database.
-              </p>
-            </div>
             <Input
               input
               type={"text"}

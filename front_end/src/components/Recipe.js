@@ -14,6 +14,7 @@ class Recipe extends Component {
       formVisible: !prevState.formVisible
     }));
   }
+
   render() {
     const { recipe, handleDelete, handleUpdate } = this.props;
 
@@ -27,6 +28,13 @@ class Recipe extends Component {
           />
         ) : (
           <div>
+            <img
+              id="recipe_chevron"
+              src="../images/recipe_chevron_orange.png"
+              title="recipe icon"
+              height="15%"
+              width="15%"
+            />
             <h3>{recipe.recipeName}</h3>
             <h4>ingredients</h4>
             <p>{recipe.ingredients}</p>

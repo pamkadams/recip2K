@@ -57,15 +57,6 @@ class App extends React.Component {
       <main>
         <div>
           <h1>What do you want to cook today? </h1>
-
-          <button onClick={this.changeForm}>Add a recipe</button>
-          <img
-            id="recipe_chevron"
-            src="images/recipe_chevron_orange.png"
-            title="recipe icon"
-            height="15%"
-            width="15%"
-          />
         </div>
 
         <Recipes
