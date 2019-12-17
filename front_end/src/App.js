@@ -1,9 +1,8 @@
 import React from "react";
-import FormContainer from "./components/FormContainer";
+
 import "./App.css";
-import RecipeFile from "./Recipefile.js";
+
 import Recipes from "./components/Recipes";
-import Search from "./components/Search";
 
 import axios from "axios";
 
@@ -52,9 +51,6 @@ class App extends React.Component {
       recipes: filteredRecipes
     });
   }
-  // async handleUpdate(id) {
-  //   await axios.put(`${baseURL}/recipes/${id}`);
-  // }
 
   render() {
     return (
@@ -77,10 +73,6 @@ class App extends React.Component {
           handleDelete={this.handleDelete}
           handleUpdate={this.handleUpdate}
         />
-
-        <div className="App">
-          <RecipeFile title="PDF test" />
-        </div>
       </main>
     );
   }

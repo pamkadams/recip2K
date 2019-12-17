@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Pdf from "./cauliflower_pizza.pdf";
+import Pdf from "../public/recipes/cauliflower_pizza.pdf";
 
 class Try extends Component {
   render() {

@@ -71,8 +71,9 @@ recipes.post("/", (req, res) => {
 });
 
 recipes.delete("/:id", (req, res) => {
-  console.log(req.params._id);
-  Recipe.deleteOne(req.params._id, req.body, (error, deletedRecipe) => {
+  console.log(req.body);
+  const recipeId = req.params;
+  Recipe.findByIdAndRemove(req.params.id, (error, deletedRecipe) => {
     if (error) {
       res.status(400).json({ error: error.message });
     }
