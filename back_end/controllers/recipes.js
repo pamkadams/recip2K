@@ -5,7 +5,7 @@ const Recipe = require("../models/recipes.js");
 //ROUTES;
 recipes.get("/search", (req, res) => {
   //variables for query including RegEx for keyword
-  console.log("keyword", req.query.keyword);
+  console.log("keyword", req.body);
   const category = req.query.category;
   const searchTags = req.query.tags;
   const keyword = new RegExp(`${req.query.keyword}`, "i", "g");
@@ -46,7 +46,6 @@ recipes.get("/search", (req, res) => {
           recipe.recipeName.match(keyword) ||
           recipe.ingredients.match(keyword) ||
           recipe.category.match(keyword)
-        //recipe.tags.some(tag=>k)
       );
     }
     if (keywordArray.length === 0) keywordArray.push("No results found.");

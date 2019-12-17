@@ -52,19 +52,6 @@ class Search extends React.Component {
     this.setState({
       recipes: data
     });
-
-    // event.preventDefault();
-    // const searchTerm = new RegExp(this.state.keyword, "i", "g");
-    // const keywordArray = this.state.recipes.filter(recipe => {
-    //   return (
-    //     recipe.recipeName.match(searchTerm) ||
-    //     recipe.ingredients.match(searchTerm) ||
-    //     recipe.category.match(searchTerm)
-    //   );
-    // });
-
-    // if (keywordArray.length === 0) keywordArray.push("No results found.");
-    // this.setState({ recipes: keywordArray });
   }
   render() {
     return (
