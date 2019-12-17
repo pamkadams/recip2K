@@ -4,11 +4,11 @@ const Recipe = require("../models/recipes.js");
 
 //ROUTES;
 recipes.get("/search", (req, res) => {
-  console.log("search successful", req.query.tags);
+  console.log("search successful", req.query.keyword.length);
   const category = req.query.category;
   const searchTags = req.query.tags;
-  const searchWords = req.query.recipeName;
-
+  //const keyword = req.query.keyword;
+  const keyword = new RegExp(`${req.query.keyword}`, "i", "g");
   Recipe.find({}, (err, foundRecipes) => {
     if (err) {
       res.status(400).json({ error: err.message });
@@ -22,12 +22,15 @@ recipes.get("/search", (req, res) => {
       });
     }
     if (newArray.length === 0) newArray.push("No results found.");
-
-    // if (recipeName.length > 0) {
-    //   lowerCaseRecipes = foundRecipes.map(recipe => recipe.recipeName.toLowerCase());
-    //   lowerCaseRecipes.filter(recipe=> return recipe.searchWordsinQuery.includes(recipe.recipeName)
-    // };
-    res.status(200).send(newArray);
+    let keywordArray;
+    //keyword.length doesn't return anything so you have to use the original variable to get the length
+    if (req.query.keyword.length > 0) {
+      //const regexString = new RegExp(`${keyword}`, "i", "g");
+      keywordArray = foundRecipes.filter(recipe =>
+        recipe.recipeName.match(keyword)
+      );
+    }
+    res.status(200).send(keywordArray);
   });
 });
 recipes.get("/", (req, res) => {
