@@ -21,6 +21,7 @@ recipes.get("/search", (req, res) => {
         return tags.some(tag => searchTags.includes(tag));
       });
     }
+    if (newArray.length === 0) newArray.push("No results found.");
 
     // if (recipeName.length > 0) {
     //   lowerCaseRecipes = foundRecipes.map(recipe => recipe.recipeName.toLowerCase());
@@ -29,7 +30,6 @@ recipes.get("/search", (req, res) => {
     res.status(200).send(newArray);
   });
 });
-
 recipes.get("/", (req, res) => {
   Recipe.find({}, (err, foundRecipes) => {
     if (err) {
