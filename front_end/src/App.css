@@ -3,6 +3,7 @@ body {
   text-align: center;
   margin: 0;
   text-decoration: none;
+  background-color: #d7e2e8;
 }
 
 h1 {
@@ -16,7 +17,7 @@ h1 {
 }
 h3 {
   font-family: "Raleway", sans-serif;
-  color: #ffffff;
+  color: #021a45;
   letter-spacing: 1px;
   font-weight: 400;
   font-size: 18px;
@@ -25,7 +26,7 @@ h3 {
 legend,
 h2 {
   font-family: "Raleway", sans-serif;
-  color: #00a6b3;
+  color: #92c4d2;
   letter-spacing: 1px;
   font-weight: 600;
   font-size: 20px;
@@ -34,16 +35,16 @@ h2 {
 
 label {
   font-family: "Raleway", sans-serif;
-  color: #f15b31;
+  color: #021a45;
   letter-spacing: 1px;
   font-weight: 600;
   font-size: 16px;
   text-align: left;
-  margin: 0.5%;
 }
 
 input[type="text"] {
   width: 50%;
+  text-align: left;
 }
 
 input[type="number"] {
@@ -71,14 +72,14 @@ p {
 }
 
 header {
-  background-color: #f15b31;
+  background-color: #021a45;
   color: #ffffff;
   padding: 30px 20px;
   text-align: center;
 }
 
 nav {
-  background-color: #00a6b3;
+  background-color: #92c4d2;
   color: #ffffff;
   padding: 20px;
 }
@@ -109,7 +110,7 @@ footer {
   color: #ffffff;
   text-transform: uppercase;
   padding: 0 20px;
-  background-color: #0d2c40;
+  background-color: #021a45;
   font-size: 14px;
   letter-spacing: 0.08em;
   font-weight: 500;
@@ -135,7 +136,7 @@ footer {
 }
 
 .name {
-  color: #f15831;
+  color: #021a45;
   font-weight: 700;
 }
 ul.ingredients {
@@ -149,48 +150,22 @@ ul.ingredients {
   text-align: left;
 }
 .source {
-  color: #00a6b3;
+  color: #92c4d2;
   display: block;
   text-align: left;
   font-weight: 300;
 }
 h3 {
   text-transform: uppercase;
-  color: #00a6b3;
+  color: #021a45;
   font-weight: 600;
   text-align: left;
 }
 hr {
-  border-color: #f15831;
+  border-color: #92c4d2;
   font-weight: 600;
 }
-.form-checkbox {
-  margin: 10px;
-}
-.form-group {
-  display: block;
-  padding-left: 15px;
-  text-indent: -15px;
-}
-input {
-  color: #00a6b3;
-}
 
-textarea {
-  display: block;
-  color: #00a6b3;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-#custom-checkbox:before {
-  color: #fff;
-  border-color: #00a6b3;
-  background-color: #00a6b3;
-}
-
-/* Checkbox border radius */
-.custom-checkbox .custom-control-label::before {
-  border-radius: 0.25rem;
+.ingredients {
+  white-space: pre-line;
 }

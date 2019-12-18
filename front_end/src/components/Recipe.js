@@ -28,15 +28,9 @@ class Recipe extends Component {
           />
         ) : (
           <div>
-            <img
-              id="recipe_chevron"
-              src="../images/recipe_chevron_orange.png"
-              title="recipe icon"
-              height="15%"
-              width="15%"
-            />
+            <hr></hr>
             <h3>{recipe.recipeName}</h3>
-            <h4>ingredients</h4>
+            <h4 className="ingredients">ingredients</h4>
             <p>{recipe.ingredients}</p>
             <h4>instructions</h4>
             <p>{recipe.instructions}</p>

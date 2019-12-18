@@ -15,30 +15,41 @@ recipes.get("/search", (req, res) => {
     if (err) {
       res.status(400).json({ error: err.message });
     }
-    let newArray = foundRecipes;
+    let newArray = [];
     //filter all recipes by category and then by tags
-    if (category)
+    if (category) {
       newArray = foundRecipes.filter(recipe => recipe.category === category);
-
+      if (searchTags) {
+        newArray = newArray.filter(recipe => {
+          const tags = recipe.tags;
+          return tags.some(tag => searchTags.includes(tag));
+        });
+      }
+      if (newArray.length === 0) newArray.push("No results found.");
+    }
     //filter by tag no category
-
-    if (searchTags) {
-      newArray = newArray.filter(recipe => {
+    let tagArray = [];
+    if (searchTags && !category) {
+      tagArray = foundRecipes.filter(recipe => {
         const tags = recipe.tags;
         return tags.some(tag => searchTags.includes(tag));
       });
     }
+    if (tagArray.length === 0) tagArray.push("No results found.");
+
+    //if keyword exists then search the database for it in the four fields below
+    let keywordArray = [];
 
     if (req.query.keyword) {
       //const regexString = new RegExp(`${keyword}`, "i", "g");
-      newArray = newArray.filter(
+      keywordArray = foundRecipes.filter(
         recipe =>
           recipe.recipeName.match(keyword) ||
           recipe.ingredients.match(keyword) ||
           recipe.category.match(keyword)
       );
     }
-
+    if (keywordArray.length === 0) keywordArray.push("No results found.");
     res.status(200).json(newArray);
   });
 });
