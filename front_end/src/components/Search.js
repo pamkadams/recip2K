@@ -89,6 +89,7 @@ class Search extends React.Component {
   }
 
   async searchKeyword(event) {
+    event.preventDefault();
     console.log("called");
     let searchStringArray = [];
     let tagString = "";
@@ -127,7 +128,8 @@ class Search extends React.Component {
 
   handleClearForm(e) {
     e.preventDefault();
-
+    const form = document.getElementById("search-field-form");
+    form.reset();
     this.setState({
       keyword: "",
       category: "",
@@ -166,10 +168,10 @@ class Search extends React.Component {
           <h1>What do you want to cook today? </h1>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="search" className="form-label">
-            {/* <form className="form-group" id="search-field-form">
+        {/* <div className="form-group">
           <label htmlFor="search" className="form-label"> */}
+        <form className="form-group" id="search-field-form">
+          <label htmlFor="search" className="form-label">
             KEYWORD SEARCH
           </label>
           <input
@@ -220,8 +222,8 @@ class Search extends React.Component {
           <button onClick={this.searchKeyword}>Search</button>
 
           <button onClick={this.handleClearForm}>Reset Search</button>
-          {/* </form> */}
-        </div>
+        </form>
+        {/* </div> */}
         <Recipes
           recipes={this.state.recipes}
           handleDelete={this.handleDelete}
