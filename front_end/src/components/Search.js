@@ -48,6 +48,7 @@ class Search extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleCategory = this.handleCategory.bind(this);
     this.handleTag = this.handleTag.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
     //this.printRecipe = this.printRecipe.bind(this);
   }
   componentDidMount() {
@@ -77,8 +78,12 @@ class Search extends React.Component {
     console.log("category", this.state.category);
   }
   async handleTag(e) {
-    await this.setState({ tags: [...this.state.tags, e.target.value] });
-    console.log("tags", this.state.tags);
+    if (this.state.tags.includes(e.target.value)) {
+      this.state.tags.splice(this.state.tags.indexOf(e.target.value), 1);
+    } else {
+      await this.setState({ tags: [...this.state.tags, e.target.value] });
+      console.log("tags", this.state.tags);
+    }
   }
 
   async searchKeyword(event) {
@@ -93,16 +98,6 @@ class Search extends React.Component {
       searchStringArray = [...searchStringArray, "keyword="];
     if (this.state.keyword.length > 0)
       searchStringArray = [...searchStringArray, this.state.keyword];
-
-    //   if (this.state.tags.length > 0 && searchStringArray.length > 0)
-    //   tagString =  "&tag=";
-    // if (this.state.tags.length > 0 && searchStringArray.length === 0)
-    //   tagString =  "tag=";
-    // if (this.state.tags.length > 0)
-    //   this.state.tags.map(tag =>{
-    //     tagString += tag;
-
-    //   });
     let str = searchStringArray.join("");
     if (this.state.tags.length > 0 && str.length > 0) tagString = "&tag=";
     if (this.state.tags.length > 0 && str.length === 0) tagString = "tag=";
@@ -121,9 +116,43 @@ class Search extends React.Component {
     const recipeData = await axios.get(
       `http://localhost:3003/recipes/search?${this.state.searchString}`
     );
+
     const data = recipeData.data;
     this.setState({
       recipes: data
+    });
+  }
+
+  handleClearForm(e) {
+    e.preventDefault();
+
+    this.setState({
+      keyword: "",
+      category: "",
+      tags: [],
+      searchString: "",
+      dropDownCategories: [
+        "",
+        "breakfast",
+        "lunch",
+        "dinner",
+        "appetizer",
+        "drinks",
+        "dessert"
+      ],
+      checkBoxTags: [
+        "instant pot",
+        "soup",
+        "pastries",
+        "family recipe",
+        "Asian",
+        "Indian",
+        "Mexican",
+        "salads",
+        "summer",
+        "holidays",
+        "entertaining"
+      ]
     });
   }
 
@@ -184,6 +213,8 @@ class Search extends React.Component {
           </div>
 
           <button onClick={this.searchKeyword}>Search</button>
+
+          <button onClick={this.handleClearForm}>Reset Search</button>
         </div>
         <Recipes
           recipes={this.state.recipes}
