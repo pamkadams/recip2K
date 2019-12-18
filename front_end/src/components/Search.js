@@ -20,6 +20,7 @@ class Search extends React.Component {
       tags: [],
       searchString: "",
       dropDownCategories: [
+        "",
         "breakfast",
         "lunch",
         "dinner",
@@ -83,20 +84,38 @@ class Search extends React.Component {
   async searchKeyword(event) {
     console.log("called");
     let searchStringArray = [];
+    let tagString = "";
     if (this.state.category.length > 0)
       searchStringArray = [`category=${this.state.category}`];
-    if (this.state.tags.length > 0 && searchStringArray.length > 0)
-      searchStringArray = [...searchStringArray, "||tag="];
-    if (this.state.tags.length > 0)
-      this.state.tags.map(tag => searchStringArray.push(tag));
     if (this.state.keyword && searchStringArray.length > 0)
-      searchStringArray = [...searchStringArray, "||keyword="];
+      searchStringArray = [...searchStringArray, "&keyword="];
+    if (this.state.keyword && searchStringArray.length === 0)
+      searchStringArray = [...searchStringArray, "keyword="];
     if (this.state.keyword.length > 0)
       searchStringArray = [...searchStringArray, this.state.keyword];
-    console.log("array", searchStringArray);
+
+    //   if (this.state.tags.length > 0 && searchStringArray.length > 0)
+    //   tagString =  "&tag=";
+    // if (this.state.tags.length > 0 && searchStringArray.length === 0)
+    //   tagString =  "tag=";
+    // if (this.state.tags.length > 0)
+    //   this.state.tags.map(tag =>{
+    //     tagString += tag;
+
+    //   });
     let str = searchStringArray.join("");
+    if (this.state.tags.length > 0 && str.length > 0) tagString = "&tag=";
+    if (this.state.tags.length > 0 && str.length === 0) tagString = "tag=";
+    if (this.state.tags.length > 0) {
+      this.state.tags.map(tag => {
+        tagString += `${tag},`;
+      });
+      str += tagString.substring(0, tagString.length - 1);
+    }
+    console.log("array", searchStringArray);
     console.log("str", str);
     await this.setState({ searchString: str });
+    console.log("str after setting state", this.state.searchString);
     console.log("empty", this.state.searchString);
 
     const recipeData = await axios.get(
