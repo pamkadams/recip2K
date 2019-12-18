@@ -6,7 +6,11 @@ import Recipes from "./components/Recipes";
 
 import axios from "axios";
 
-const baseURL = "http://localhost:3003";
+let baseURL = "https://recip2k.herokuapp.com";
+
+if (process.env.NODE_ENV === "development") {
+  baseURL = "http://localhost:3003";
+}
 
 console.log("current base URL in App.js not FormContainer", baseURL);
 

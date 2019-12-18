@@ -8,6 +8,12 @@ import TextArea from "./TextArea";
 import Select from "./Select";
 import Button from "./Button";
 
+let baseURL = "https://recip2k.herokuapp.com";
+
+if (process.env.NODE_ENV === "development") {
+  baseURL = "http://localhost:3003";
+}
+
 class FormContainer extends Component {
   //build out the form fields here. e.g. recipe change the newRecipe to newRecipe
   constructor(props) {
@@ -134,14 +140,11 @@ class FormContainer extends Component {
     console.log("sent", recipeData);
     if (recipeData.recipeId) {
       const response = await Axios.put(
-        `http://localhost:3003/recipes/${recipeData.recipeId}`,
+        `${baseURL}/${recipeData.recipeId}`,
         recipeData
       );
     } else {
-      const response = await Axios.post(
-        `http://localhost:3003/recipes`,
-        recipeData
-      );
+      const response = await Axios.post(`${baseURL}/recipes`, recipeData);
       const data = response.data;
       this.setState({
         recipes: data
