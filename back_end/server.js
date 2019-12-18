@@ -4,6 +4,8 @@ const app = express();
 const cors = require("cors");
 const favicon = require("serve-favicon");
 const path = require("path");
+const mongdburi =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/recipes";
 const port = process.env.PORT || 3003;
 
 const mongoose = require("mongoose");
@@ -49,7 +51,7 @@ mongoose.connection.on("disconnected", err =>
 );
 
 //DB CONNECTION
-mongoose.connect("mongodb://localhost:27017/recipes", {
+mongoose.connect(mongdburi, {
   useNewUrlParser: true
 });
 mongoose.connection.once("open", () => {
