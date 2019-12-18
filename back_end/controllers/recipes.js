@@ -5,7 +5,7 @@ const Recipe = require("../models/recipes.js");
 //ROUTES;
 recipes.get("/search", (req, res) => {
   //variables for query including RegEx for keyword
-  console.log("keyword", req.body);
+  console.log("query", req.query);
   const category = req.query.category;
   const searchTags = req.query.tags;
   const keyword = new RegExp(`${req.query.keyword}`, "i", "g");
@@ -15,17 +15,18 @@ recipes.get("/search", (req, res) => {
     if (err) {
       res.status(400).json({ error: err.message });
     }
-
+    let newArray = [];
     //filter all recipes by category and then by tags
-    let newArray = foundRecipes.filter(recipe => recipe.category === category);
-    if (searchTags) {
-      newArray = newArray.filter(recipe => {
-        const tags = recipe.tags;
-        return tags.some(tag => searchTags.includes(tag));
-      });
+    if (category) {
+      newArray = foundRecipes.filter(recipe => recipe.category === category);
+      if (searchTags) {
+        newArray = newArray.filter(recipe => {
+          const tags = recipe.tags;
+          return tags.some(tag => searchTags.includes(tag));
+        });
+      }
+      if (newArray.length === 0) newArray.push("No results found.");
     }
-    if (newArray.length === 0) newArray.push("No results found.");
-
     //filter by tag no category
     let tagArray = [];
     if (searchTags && !category) {
@@ -49,7 +50,7 @@ recipes.get("/search", (req, res) => {
       );
     }
     if (keywordArray.length === 0) keywordArray.push("No results found.");
-    res.status(200).send(keywordArray);
+    res.status(200).json(newArray);
   });
 });
 recipes.get("/", (req, res) => {
