@@ -19,6 +19,7 @@ class Search extends React.Component {
       category: "",
       tags: [],
       searchString: "",
+
       dropDownCategories: [
         "",
         "breakfast",
@@ -78,6 +79,7 @@ class Search extends React.Component {
     console.log("category", this.state.category);
   }
   async handleTag(e) {
+    this.setState({ checked: e.target.checked });
     if (this.state.tags.includes(e.target.value)) {
       this.state.tags.splice(this.state.tags.indexOf(e.target.value), 1);
     } else {
@@ -125,12 +127,14 @@ class Search extends React.Component {
 
   handleClearForm(e) {
     e.preventDefault();
-
+    const form = document.getElementById("search-field-form");
+    form.reset();
     this.setState({
       keyword: "",
       category: "",
       tags: [],
       searchString: "",
+
       dropDownCategories: [
         "",
         "breakfast",
@@ -163,7 +167,7 @@ class Search extends React.Component {
           <h1>What do you want to cook today? </h1>
         </div>
 
-        <div className="form-group">
+        <form className="form-group" id="search-field-form">
           <label htmlFor="search" className="form-label">
             KEYWORD SEARCH
           </label>
@@ -215,7 +219,7 @@ class Search extends React.Component {
           <button onClick={this.searchKeyword}>Search</button>
 
           <button onClick={this.handleClearForm}>Reset Search</button>
-        </div>
+        </form>
         <Recipes
           recipes={this.state.recipes}
           handleDelete={this.handleDelete}
