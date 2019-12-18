@@ -15,7 +15,8 @@ const whitelist = [
   "http://localhost:3000",
   "http://localhost:3003",
   "http://127.0.0.1:3000",
-  "http://127.0.0.1:3003"
+  "http://127.0.0.1:3003",
+  "https://recip2k.surge.sh"
 ];
 // const corsOptions = {
 //   origin: (origin, callback) => {
