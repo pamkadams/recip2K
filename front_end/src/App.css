@@ -168,4 +168,20 @@ hr {
 
 .ingredients {
   white-space: pre-line;
+  font-family: "Raleway", sans-serif;
+}
+
+#original_source {
+  color: #ffffff;
+}
+
+.sub_title {
+  font-family: "Raleway", sans-serif;
+
+  text-align: center;
+  color: #92c4d2;
+}
+
+#btn {
+  margin: 1em;
 }

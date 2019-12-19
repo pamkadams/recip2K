@@ -29,13 +29,17 @@ class Recipe extends Component {
         ) : (
           <div>
             <hr></hr>
-            <h3>{recipe.recipeName}</h3>
-            <h4 className="ingredients">ingredients</h4>
-            <p>{recipe.ingredients}</p>
-            <h4>instructions</h4>
-            <p>{recipe.instructions}</p>
-            <a href={recipe.recipeUrl}>Original Source</a>
-            <button onClick={() => handleDelete(recipe._id)}>Delete</button>
+            <h3 className="title">{recipe.recipeName}</h3>
+            <h3 className="sub_title">ingredients</h3>
+            <p className="ingredients">{recipe.ingredients}</p>
+            <h3 className="sub_title">instructions</h3>
+            <p className="ingredients">{recipe.instructions}</p>
+            <a id="original_source" href={recipe.recipeUrl}>
+              original source (if available)
+            </a>
+            <button id="btn" onClick={() => handleDelete(recipe._id)}>
+              Delete
+            </button>
             <button onClick={this.toggleForm}>Edit this recipe</button>
           </div>
         )}
