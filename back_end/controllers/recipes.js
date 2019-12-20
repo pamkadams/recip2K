@@ -72,6 +72,7 @@ recipes.delete("/:id", (req, res) => {
 });
 
 recipes.put("/:id", (req, res) => {
+  console.log(req.body.recipeId);
   Recipe.updateOne(
     { _id: { $eq: req.body.recipeId } },
     req.body,

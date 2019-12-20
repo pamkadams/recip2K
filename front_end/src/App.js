@@ -67,6 +67,7 @@ class App extends React.Component {
           recipes={this.state.recipes}
           handleDelete={this.handleDelete}
           handleUpdate={this.handleUpdate}
+          getRecipes={this.getRecipes}
         />
       </main>
     );

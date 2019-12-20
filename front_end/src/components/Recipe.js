@@ -16,7 +16,7 @@ class Recipe extends Component {
   }
 
   render() {
-    const { recipe, handleDelete, handleUpdate } = this.props;
+    const { recipe, handleDelete, handleUpdate, getRecipes } = this.props;
 
     return (
       <>
@@ -25,6 +25,7 @@ class Recipe extends Component {
             recipe={recipe}
             handleFormSubmit={handleUpdate}
             toggleForm={this.toggleForm}
+            getRecipes={getRecipes}
           />
         ) : (
           <div>

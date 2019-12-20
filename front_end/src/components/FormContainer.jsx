@@ -1,6 +1,7 @@
 //renders all of the form elements and handles business logic for the form. It also updates the state, handles form submission, and makes API calls
 import React, { Component } from "react";
 //Here are all the stateless form components choose the ones you need
+import { Redirect } from "react-router-dom";
 import Axios from "axios";
 import CheckBox from "./CheckBox";
 import Input from "./Input";
@@ -49,7 +50,8 @@ class FormContainer extends Component {
         "holidays",
         "entertaining"
       ],
-      update: false
+      update: false,
+      toHome: false
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -140,7 +142,7 @@ class FormContainer extends Component {
     console.log("sent", recipeData);
     if (recipeData.recipeId) {
       const response = await Axios.put(
-        `${baseURL}/${recipeData.recipeId}`,
+        `${baseURL}/recipes/${recipeData.recipeId}`,
         recipeData
       );
     } else {
@@ -162,9 +164,16 @@ class FormContainer extends Component {
         instructions: ""
       }
     });
+    this.setState({
+      toHome: true
+    });
+    window.location.reload();
   }
 
   render() {
+    if (this.state.toHome === true) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         <form className="container" onSubmit={this.handleFormSubmit}>
