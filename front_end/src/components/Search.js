@@ -114,14 +114,12 @@ class Search extends React.Component {
       });
       str += tagString.substring(0, tagString.length - 1);
     }
-    console.log("array", searchStringArray);
-    console.log("str", str);
+
     await this.setState({ searchString: str });
     console.log("str after setting state", this.state.searchString);
-    console.log("empty", this.state.searchString);
 
     const recipeData = await axios.get(
-      `http://localhost:3003/recipes/search?${this.state.searchString}`
+      `${baseURL}/recipes/search?${this.state.searchString}`
     );
 
     const data = recipeData.data;
